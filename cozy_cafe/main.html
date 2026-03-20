@@ -1,80 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cafe Ginkgo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Quicksand:wght@300;400;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
-      --periwinkle:  #AFC2FF;
+      --periwinkle: #AFC2FF;
       --periwinkle-light: #D8E4FF;
-      --periwinkle-dark:  #5070C8;
-      --navy:        #1E2D6B;
-      --fog:         #EEF2FF;
-      --page-bg:     #F4F6FF;
-      --text-dark:   #1E2D6B;
-      --text-mid:    #4A5899;
-      --white-soft:  rgba(255, 255, 255, 0.65);
-      --radius:      14px;
-      --shadow:      0 4px 24px rgba(80, 112, 200, 0.12);
+      --periwinkle-dark: #5070C8;
+      --navy: #1E2D6B;
+      --fog: #EEF2FF;
+      --text-dark: #1E2D6B;
+      --text-mid: #4A5899;
+      --white-soft: rgba(255, 255, 255, 0.72);
+      --radius: 14px;
+      --shadow: 0 4px 32px rgba(80, 112, 200, 0.15);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
     body {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Quicksand', sans-serif;
       font-weight: 400;
-      background-color: var(--page-bg);
-      background-image:
-        radial-gradient(ellipse at 15% 10%, #d0dbff 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 90%, #c5d4ff55 0%, transparent 55%);
       min-height: 100vh;
       color: var(--text-dark);
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 24px 16px 48px;
+      position: relative;
+      overflow-x: hidden;
+      background: linear-gradient(155deg, #fdf6ee 0%, #eef2ff 45%, #dce6ff 100%);
     }
 
-    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.40;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      width: 500px;
+      height: 500px;
+      top: -120px;
+      left: -100px;
+      background: radial-gradient(circle, #c8d8ff, #f0e0ff);
+      animation: blobDrift 16s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      width: 420px;
+      height: 420px;
+      bottom: -80px;
+      right: -80px;
+      background: radial-gradient(circle, #ffe9cc, #ffd6e8);
+      animation: blobDrift 20s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes blobDrift {
+      from {
+        transform: translate(0, 0) scale(1)
+      }
+
+      to {
+        transform: translate(40px, 28px) scale(1.09)
+      }
+    }
+
+    .card,
+    #progressWrap {
+      position: relative;
+      z-index: 1
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'DM Serif Display', serif;
+    }
 
     .card {
       width: 100%;
       max-width: 520px;
       background: var(--white-soft);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(175, 194, 255, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(175, 194, 255, 0.50);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 32px 24px;
       text-align: center;
     }
 
-    .hidden { display: none !important; }
+    .hidden {
+      display: none !important
+    }
 
-    /* ─── Start Screen ── */
+    /* Start */
     #startScreen .welcome-img {
       width: 100%;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 20px
     }
 
     #startScreen h1 {
       font-size: 1.8rem;
       color: var(--navy);
-      margin-bottom: 12px;
+      margin-bottom: 12px
     }
 
     #startScreen p {
       color: var(--text-mid);
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 24px
     }
 
-    /* ─── Primary Button ── */
+    /* Button */
     .btn-primary {
       background-color: var(--periwinkle-dark);
       color: #fff;
@@ -90,21 +146,26 @@
       transition: background 0.2s ease, transform 0.15s ease;
     }
 
-    .btn-primary:hover  { background-color: var(--navy); }
-    .btn-primary:active { transform: scale(0.97); }
+    .btn-primary:hover {
+      background-color: var(--navy)
+    }
 
-    /* ─── Progress Bar ── */
+    .btn-primary:active {
+      transform: scale(0.97)
+    }
+
+    /* Progress */
     #progressWrap {
       width: 100%;
       max-width: 520px;
-      margin-bottom: 16px;
+      margin-bottom: 16px
     }
 
     .progress-track {
       height: 6px;
       background: var(--fog);
       border-radius: 99px;
-      overflow: hidden;
+      overflow: hidden
     }
 
     .progress-fill {
@@ -112,90 +173,98 @@
       background: var(--periwinkle-dark);
       border-radius: 99px;
       transition: width 0.4s ease;
-      width: 0%;
+      width: 0%
     }
 
     .progress-label {
       font-size: 0.78rem;
       color: var(--text-mid);
       text-align: right;
-      margin-top: 4px;
-      letter-spacing: 0.03em;
+      margin-top: 4px
     }
 
-    /* ─── Quiz Card ── */
+    /* Quiz options */
     #quizCard h2 {
       font-size: 1.15rem;
       color: var(--navy);
       margin-bottom: 20px;
-      line-height: 1.5;
+      line-height: 1.5
     }
 
     .options {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 12px
     }
 
     label.option {
       display: flex;
-      align-items: flex-start;
-      gap: 14px;
+      flex-direction: column;
+      align-items: stretch;
       background: var(--fog);
       border: 1.5px solid transparent;
       border-radius: 10px;
-      padding: 14px;
+      overflow: hidden;
       cursor: pointer;
-      text-align: left;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
 
     label.option:hover {
       background: var(--periwinkle-light);
       border-color: var(--periwinkle);
-      transform: translateY(-1px);
+      transform: translateY(-1px)
     }
 
-    label.option input[type="radio"] { display: none; }
+    label.option input[type="radio"] {
+      display: none
+    }
 
     label.option .img-wrap {
-      width: 80px;
-      height: 80px;
-      flex-shrink: 0;
-      border-radius: 8px;
+      width: 100%;
+      height: 180px;
       background: var(--periwinkle-light);
       display: flex;
       align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      justify-content: center
     }
 
     label.option img {
-      width: 72px;
-      height: 72px;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      border-radius: 4px;
+      padding: 12px
     }
 
     label.option .option-text {
       font-size: 0.92rem;
       color: var(--text-dark);
       line-height: 1.5;
-      padding-top: 4px;
+      padding: 12px 14px;
+      text-align: center
     }
 
-    /* ─── Loading Screen ── */
+    /* Loading */
+    #loadingScreen {
+      position: relative;
+      overflow: hidden
+    }
+
     #loadingScreen p {
-      font-family: 'Playfair Display', serif;
+      position: relative;
+      z-index: 2;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.3px;
       font-style: italic;
-      font-size: 1.1rem;
       color: var(--navy);
       margin-bottom: 20px;
     }
 
     #loadingScreen .img-wrap {
-      width: 160px;
-      height: 160px;
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      height: 280px;
       margin: 0 auto 16px;
       border-radius: 12px;
       background: var(--periwinkle-light);
@@ -205,40 +274,58 @@
       animation: pulse 1.5s ease-in-out infinite;
     }
 
-    #loadingScreen img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
+    #loadingScreen p:last-of-type {
+      letter-spacing: 0.5px;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; transform: scale(0.97); }
-      50%       { opacity: 1;   transform: scale(1.03); }
+    /* Warm golden glow — visible against the periwinkle background */
+    #loadingScreen .img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border-radius: 20px;
+      background: radial-gradient(circle at center, rgba(255, 210, 100, 0.45) 0%, rgba(255, 170, 60, 0.18) 50%, transparent 75%);
+      animation: glowPulse 2.5s ease-in-out infinite;
+      animation-delay: 0.3s;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(6px);
+    }
+
+    #shadowImg {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      filter: opacity(0.6) drop-shadow(0 0 20px rgba(80, 112, 200, 0.3));
+      position: relative;
+      z-index: 1;
+      transition: transform 0.4s ease;
     }
 
     .spinner {
+      position: relative;
+      z-index: 2;
       width: 32px;
       height: 32px;
-      border: 3px solid var(--periwinkle-light);
-      border-top-color: var(--periwinkle-dark);
+      border: 3px solid rgba(80, 112, 200, 0.2);
+      border-top-color: rgba(80, 112, 200, 0.7);
       border-radius: 50%;
       margin: 0 auto;
       animation: spin 0.9s linear infinite;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ─── Result Screen ── */
+    /* Result */
     #resultScreen h2 {
       font-size: 1.4rem;
       color: var(--navy);
       margin-bottom: 16px;
-      line-height: 1.4;
+      line-height: 1.4
     }
 
     #resultScreen .img-wrap {
-      width: 240px;
-      height: 240px;
+      position: relative;
+      width: 100%;
+      height: 300px;
       border-radius: 16px;
       background: var(--periwinkle-light);
       margin: 0 auto 16px;
@@ -247,19 +334,26 @@
       justify-content: center;
     }
 
-    #resultScreen img {
-      width: 220px;
-      height: 220px;
-      object-fit: contain;
+    /* Same warm glow on result */
+    #resultScreen .img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border-radius: 24px;
+      background: radial-gradient(circle at center, rgba(255, 210, 100, 0.45) 0%, rgba(255, 170, 60, 0.18) 50%, transparent 75%);
+      animation: glowPulse 2.5s ease-in-out infinite;
+      animation-delay: 0.3s;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(6px);
     }
 
-    #resultScreen .fun-fact {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--text-mid);
-      margin-bottom: 12px;
-      line-height: 1.6;
+    #resultScreen img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1
     }
 
     #resultScreen .cta {
@@ -267,14 +361,48 @@
       color: var(--text-dark);
       background: var(--fog);
       border-radius: 8px;
-      padding: 12px 16px;
+      padding: 12px 16px
+    }
+
+    /* Animations */
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+        transform: scale(0.93)
+      }
+
+      50% {
+        opacity: 1.0;
+        transform: scale(1.07)
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.6;
+        transform: scale(0.97)
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.03)
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ── Start Screen ── -->
   <div id="startScreen" class="card">
     <img src="front.png" alt="Welcome to Cafe Ginkgo" class="welcome-img">
     <h1>Welcome to Cafe Ginkgo!</h1>
@@ -282,7 +410,6 @@
     <button id="startBtn" class="btn-primary">Enter</button>
   </div>
 
-  <!-- ── Progress Bar ── -->
   <div id="progressWrap" class="hidden">
     <div class="progress-track">
       <div id="progressFill" class="progress-fill"></div>
@@ -290,22 +417,21 @@
     <div id="progressLabel" class="progress-label">Question 1 of 4</div>
   </div>
 
-  <!-- ── Quiz Card ── -->
   <div id="quizCard" class="card hidden">
     <h2 id="questionText"></h2>
     <div class="options" id="optionsContainer"></div>
   </div>
 
-  <!-- ── Loading Screen ── -->
   <div id="loadingScreen" class="card hidden">
     <p>Lost in your own little world, you glance up as the waitress brings over your treat…</p>
     <div class="img-wrap">
       <img id="shadowImg" src="" alt="Your treat is on its way">
     </div>
-    <div class="spinner"></div>
+    <p
+      style="font-size:0.85rem; color:var(--text-mid); opacity:0.7; font-family:'Quicksand', sans-serif; font-weight:300; font-weight:300; font-style:italic;">
+      Preparing your order…</p>
   </div>
 
-  <!-- ── Result Screen ── -->
   <div id="resultScreen" class="card hidden">
     <h2 id="resultTitle"></h2>
     <div class="img-wrap">
@@ -314,146 +440,94 @@
     <p class="cta" id="resultCta"></p>
   </div>
 
-  <audio id="nextSound"   src="coffee_drop.mp3"  preload="auto"></audio>
-  <audio id="finishSound" src="coffee_finish.mp3"  preload="auto"></audio>
-
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <audio id="nextSound" src="coffee_drop.mp3" preload="auto"></audio>
+  <audio id="finishSound" src="coffee_finish.mp3" preload="auto"></audio>
 
   <script>
-    /* ═══════════════════════════════════════════════════
-       QUIZ DATA
-    ═══════════════════════════════════════════════════ */
-
     const questions = [
       {
-        text: "Where would you like to sit?",
-        name: "q1",
-        options: [
+        text: "Where would you like to sit?", name: "q1", options: [
           { value: "window", img: "Q1 - 1.png", label: "By the window, where I can watch the world go by!" },
-          { value: "sofa",   img: "Q1 - 2.png", label: "On the sofa next to the cat. I promise not to wake it up!" }
+          { value: "sofa", img: "Q1 - 2.png", label: "On the sofa next to the cat. I promise not to wake it up!" }
         ]
       },
       {
-        text: "You take a look at the menu and two drinks catch your eye. What will you be having?",
-        name: "q2",
-        options: [
+        text: "You take a look at the menu and two drinks catch your eye. What will you be having?", name: "q2", options: [
           { value: "matcha", img: "Q2 - 1.png", label: "A matcha latte — smooth and creamy." },
           { value: "sakura", img: "Q2 - 2.png", label: "A sakura tea — sweet and fragrant." }
         ]
       },
       {
-        text: "While browsing the rest of the menu, you start to feel a little peckish... Are you in the mood for something sweet or savoury?",
-        name: "q3",
-        options: [
+        text: "While browsing the rest of the menu, you start to feel a little peckish... Are you in the mood for something sweet or savoury?", name: "q3", options: [
           { value: "savoury", img: "Q3 - 1.png", label: "Something savoury and filling!" },
-          { value: "sweet",   img: "Q3 - 2.png", label: "Something sweet and refreshing!" }
+          { value: "sweet", img: "Q3 - 2.png", label: "Something sweet and refreshing!" }
         ]
       },
       {
-        text: "After placing your order, you settle down at your table with your warm beverage. How will you spend your cosy afternoon at the cafe?",
-        name: "q4",
-        options: [
-          { value: "book",   img: "Q4 - 1.png", label: "I've brought along this book I've been reading — perfect for a little relaxing escape!" },
+        text: "After placing your order, you settle down at your table with your warm beverage. How will you spend your cosy afternoon at the cafe?", name: "q4", options: [
+          { value: "book", img: "Q4 - 1.png", label: "I've brought along this book I've been reading — perfect for a little relaxing escape!" },
           { value: "laptop", img: "Q4 - 2.png", label: "I've brought my laptop, ready to tackle some work!" }
         ]
       }
     ];
 
-    /*
-      Result logic based on Q3 answer (savoury → answers 1 or 2, sweet → answers 3 or 4)
-      combined with Q4 answer (book → odd result, laptop → even result)
-
-      savoury + book   → answer 1 (tempura bento)
-      savoury + laptop → answer 2 (omelette bento)
-      sweet   + book   → answer 3 (caramel pudding)
-      sweet   + laptop → answer 4 (melon soda)
-    */
-
     const results = {
-      "savoury-book":   { img: "answer 1.png", title: "Your tempura bento has arrived!",    cta: "Come over to table 56 to enjoy this tasty treat!" },
-      "savoury-laptop": { img: "answer 2.png", title: "Your omelette bento has arrived!",   cta: "Come over to table 56 to enjoy this tasty treat!" },
-      "sweet-book":     { img: "answer 3.png", title: "Your caramel pudding has arrived!",  cta: "Come over to table 56 to enjoy this tasty treat!" },
-      "sweet-laptop":   { img: "answer 4.png", title: "Your melon soda has arrived!",       cta: "Come over to table 56 to enjoy this tasty treat!" }
+      "savoury-book": { shadow: "shadow 1.png", img: "answer 1.png", title: "Your tempura bento has arrived!", cta: "Come over to table 56 to enjoy this tasty treat!" },
+      "savoury-laptop": { shadow: "shadow 2.png", img: "answer 2.png", title: "Your omelette bento has arrived!", cta: "Come over to table 56 to enjoy this tasty treat!" },
+      "sweet-book": { shadow: "shadow 3.png", img: "answer 3.png", title: "Your caramel pudding has arrived!", cta: "Come over to table 56 to enjoy this tasty treat!" },
+      "sweet-laptop": { shadow: "shadow 4.png", img: "answer 4.png", title: "Your melon soda has arrived!", cta: "Come over to table 56 to enjoy this tasty treat!" }
     };
-
-    /* ═══════════════════════════════════════════════════
-       STATE
-    ═══════════════════════════════════════════════════ */
 
     let currentIndex = 0;
     const totalQuestions = questions.length;
-    const answers = {};   // stores { q1: value, q2: value, ... }
+    const answers = {};
 
-    /* ═══════════════════════════════════════════════════
-       ELEMENT REFS
-    ═══════════════════════════════════════════════════ */
-
-    const startScreen   = document.getElementById('startScreen');
-    const progressWrap  = document.getElementById('progressWrap');
-    const progressFill  = document.getElementById('progressFill');
+    const startScreen = document.getElementById('startScreen');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressFill = document.getElementById('progressFill');
     const progressLabel = document.getElementById('progressLabel');
-    const quizCard      = document.getElementById('quizCard');
-    const questionText  = document.getElementById('questionText');
-    const optionsCont   = document.getElementById('optionsContainer');
+    const quizCard = document.getElementById('quizCard');
+    const questionText = document.getElementById('questionText');
+    const optionsCont = document.getElementById('optionsContainer');
     const loadingScreen = document.getElementById('loadingScreen');
-    const shadowImg     = document.getElementById('shadowImg');
-    const resultScreen  = document.getElementById('resultScreen');
-    const resultTitle   = document.getElementById('resultTitle');
-    const resultImg     = document.getElementById('resultImg');
-    const resultCta     = document.getElementById('resultCta');
-    const nextSound     = document.getElementById('nextSound');
-    const finishSound   = document.getElementById('finishSound');
-    const startBtn      = document.getElementById('startBtn');
+    const shadowImg = document.getElementById('shadowImg');
+    const resultScreen = document.getElementById('resultScreen');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultImg = document.getElementById('resultImg');
+    const resultCta = document.getElementById('resultCta');
+    const nextSound = document.getElementById('nextSound');
+    const finishSound = document.getElementById('finishSound');
+    const startBtn = document.getElementById('startBtn');
 
-    /* ═══════════════════════════════════════════════════
-       HELPERS
-    ═══════════════════════════════════════════════════ */
-
-    function show(el) { el.classList.remove('hidden'); }
-    function hide(el) { el.classList.add('hidden'); }
-
-    function updateProgress(questionNumber) {
-      const percent = Math.round((questionNumber / totalQuestions) * 100);
-      progressFill.style.width = percent + '%';
-      progressLabel.textContent = `Question ${questionNumber} of ${totalQuestions}`;
+    function show(el) { el.classList.remove('hidden') }
+    function hide(el) { el.classList.add('hidden') }
+    function updateProgress(n) {
+      progressFill.style.width = Math.round((n / totalQuestions) * 100) + '%';
+      progressLabel.textContent = `Question ${n} of ${totalQuestions}`;
     }
-
-    /* ═══════════════════════════════════════════════════
-       RENDER A QUESTION
-    ═══════════════════════════════════════════════════ */
 
     function renderQuestion(index) {
       const q = questions[index];
       questionText.textContent = q.text;
       optionsCont.innerHTML = '';
-
       q.options.forEach(opt => {
         const label = document.createElement('label');
         label.className = 'option';
         label.innerHTML = `
           <input type="radio" name="${q.name}" value="${opt.value}">
           <div class="img-wrap"><img src="${opt.img}" alt="${opt.label}"></div>
-          <span class="option-text">${opt.label}</span>
-        `;
+          <span class="option-text">${opt.label}</span>`;
         label.querySelector('input').addEventListener('change', () => onOptionSelected(q.name, opt.value));
         optionsCont.appendChild(label);
       });
-
       updateProgress(index + 1);
     }
 
-    /* ═══════════════════════════════════════════════════
-       HANDLE OPTION CLICK
-    ═══════════════════════════════════════════════════ */
-
     function onOptionSelected(questionName, value) {
       answers[questionName] = value;
-
       nextSound.currentTime = 0;
       nextSound.play();
-
-      const isLastQuestion = currentIndex === totalQuestions - 1;
-      if (isLastQuestion) {
+      if (currentIndex === totalQuestions - 1) {
         showLoading();
       } else {
         currentIndex++;
@@ -461,51 +535,29 @@
       }
     }
 
-    /* ═══════════════════════════════════════════════════
-       DETERMINE RESULT
-    ═══════════════════════════════════════════════════ */
-
     function getResult() {
-      const taste = answers['q3'];   // 'savoury' or 'sweet'
-      const vibe  = answers['q4'];   // 'book' or 'laptop'
-      const key   = `${taste}-${vibe}`;
-      return results[key] || results['savoury-book']; // fallback
+      const key = `${answers['q3']}-${answers['q4']}`;
+      return results[key] || results['savoury-book'];
     }
-
-    /* ═══════════════════════════════════════════════════
-       LOADING → RESULT
-    ═══════════════════════════════════════════════════ */
 
     function showLoading() {
       hide(quizCard);
       hide(progressWrap);
-
       const chosen = getResult();
-
-      // Pre-load result image
-      shadowImg.src = chosen.img;
+      shadowImg.src = chosen.shadow;
       resultImg.src = chosen.img;
       resultTitle.textContent = chosen.title;
-      resultCta.textContent   = chosen.cta;
-
+      resultCta.textContent = chosen.cta;
       show(loadingScreen);
-
+      setTimeout(() => { shadowImg.style.transform = "scale(1.05)"; }, 100);
+      finishSound.currentTime = 0;
+      finishSound.play();
       setTimeout(() => {
+        shadowImg.style.transform = "";
         hide(loadingScreen);
-        finishSound.play();
         show(resultScreen);
-
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          colors: ['#AFC2FF', '#5070C8', '#1E2D6B', '#D8E4FF', '#ffffff']
-        });
       }, 4000);
     }
-
-    /* ═══════════════════════════════════════════════════
-       START
-    ═══════════════════════════════════════════════════ */
 
     startBtn.addEventListener('click', () => {
       hide(startScreen);
@@ -515,4 +567,5 @@
     });
   </script>
 </body>
+
 </html>
